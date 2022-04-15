@@ -1,0 +1,51 @@
+browserConfig:
+  browserEnum: CHROME
+#FIREFOX
+#EDGE
+#IE
+
+browserProperties:
+  webElementTimeOut: 20
+  webBrowserImplicitTimeOut: 22
+
+
+environment:
+  intEnv:
+    appUrl: https://seleniumui.moderntester.pl/form.php
+#    appUrl: http://146.59.32.4/
+    env_name: intEnv
+    firstName: Albert
+    lastName: Einstein
+    email: ae@example.com
+    password: ae123456
+    command1: Browser Commands
+    command2: Navigation Commands
+    expectedMessage: Form send with success
+    pathToFileForUpload: src/main/resources/fileForUpload.txt
+    active: true
+
+  testEnv:
+    appUrl: https://seleniumui.moderntester.pl/form.php
+    env_name: testEnv
+    firstName: Leonardo
+    lastName: DaVinci
+    email: ld@example.com
+    password: ld123456
+    command1: Switch Commands
+    command2: Wait Commands
+    expectedMessage: Form send with success
+    pathToFileForUpload: src/main/resources/fileForUpload.txt
+    active: false
+
+  defaultEnv:
+    appUrl: https://seleniumui.moderntester.pl/form.php
+    env_name: defaultEnv
+    firstName: Jack
+    lastName: Jackson
+    email: JJ@example.com
+    password: jj123456
+    command1: Browser Commands
+    command2: Navigation Commands
+    expectedMessage: Form send with success
+    pathToFileForUpload: src/main/resources/fileForUpload.txt
+    active: false
