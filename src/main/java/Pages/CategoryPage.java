@@ -30,6 +30,9 @@ public class CategoryPage extends BasePage {
     @FindBy(xpath = "//div[@itemprop='itemListElement']")
     private List<WebElement> foundedInCategoryProductsList;
 
+    @FindBy(xpath = "//ul[@class='category-sub-menu']//a")
+    private List<WebElement> subcategoryList;
+
 
     public String getCategoryTitle(){
         logger.info("<<<<<<<<<< Category title is: "+categoryTitle.getText());
@@ -51,5 +54,9 @@ public class CategoryPage extends BasePage {
             return true;
         }
         else {return false;}
+    }
+
+    public List<WebElement> getSubcategories(){
+        return subcategoryList;
     }
 }

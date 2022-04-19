@@ -43,7 +43,7 @@ public class CategoryPageTest extends TestBase {
         logger.info("<<<<<<<<<< List of side bar confirmations is: " + confirmationOfDisplayingSideBar);
         logger.info("<<<<<<<<<< List of matches count of products confirmations: " + confirmationCountOfProducts);
 
-        assertAll("Error in ",
+        assertAll("Error in categories",
                 () -> assertEquals(categoryNamesOnTopPanel, categoryTitlesOnPage),
                 () -> assertEquals(successResult, confirmationOfDisplayingSideBar),
                 () -> assertEquals(successResult, confirmationCountOfProducts));

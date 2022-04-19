@@ -30,6 +30,7 @@ public class BasePage {
         PageFactory.initElements(driver, this);
     }
 
+
     public void clickOnElement(WebElement webElement) {
         webElement.click();
         logger.info("<<<<<<<<<< Click on element: " + webElement.getText());
