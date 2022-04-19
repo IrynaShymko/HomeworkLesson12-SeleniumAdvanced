@@ -11,8 +11,8 @@ browserProperties:
 
 environment:
   intEnv:
-    appUrl: https://seleniumui.moderntester.pl/form.php
-#    appUrl: http://146.59.32.4/
+#    appUrl: https://seleniumui.moderntester.pl/form.php
+    appUrl: http://146.59.32.4/
     env_name: intEnv
     firstName: Albert
     lastName: Einstein

@@ -16,8 +16,8 @@ public class Form {
     private WebDriver driver;
 
     public Form(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//input [@id='inputFirstName3']")

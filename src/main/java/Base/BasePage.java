@@ -67,10 +67,9 @@ public class BasePage {
         logger.info("<<<<<<<<<< Send keys Value is: " + value);
     }
 
-    public void chooseRandomValueFromList(List<WebElement> webElements) {
+    public WebElement chooseRandomValueFromList(List<WebElement> webElements) {
         int index = new Random().nextInt(webElements.size());
-        wait.until(ExpectedConditions.elementToBeClickable(webElements.get(index)));
-        webElements.get(index).click();
+        return webElements.get(index);
     }
 
     public void switchToLastOpenedWindow() {

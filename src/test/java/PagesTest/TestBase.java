@@ -1,12 +1,11 @@
 package PagesTest;
-
+import Base.BasePage;
+import Pages.MainPage;
+import Pages.TopPanelPage;
 import Properties.AppProperties;
-import Properties.BrowserConfig;
 import Properties.BrowserEnvironment;
-import Properties.Configuration;
 import Properties.readers.YMLreader;
 import helpers.DriverFactory;
-
 import org.junit.jupiter.api.AfterAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,22 +13,25 @@ import org.junit.jupiter.api.BeforeAll;
 
 import org.openqa.selenium.WebDriver;
 
-public class TestBase {
+public class TestBase extends BasePage {
     private static Logger logger = LoggerFactory.getLogger("PagesTest.TestBase.class");
     protected static WebDriver driver;
     private static AppProperties appProperties;
     private static BrowserEnvironment browserEnvironment;
-    private static BrowserConfig browserConfig;
-    private static Configuration configuration;
+    MainPage mainPage = new MainPage(driver);
+    TopPanelPage topPanelPage=new TopPanelPage(driver);
 
+    public TestBase (WebDriver driver) {
+        super(driver);
+        logger.info("########## TestBase page is created");
+    }
 
     @BeforeAll
-    static void BeforeAll() {
+    static void beforeAll() {
         appProperties = new AppProperties();
         browserEnvironment = new BrowserEnvironment();
         driver=new DriverFactory().getDriver(new YMLreader().getConfiguration().getBrowserConfig().getBrowserEnum());
-        logger.info("<<<<<<<<<<<<<<<<<< Driver started successfully");
-        logger.info("<<<<<<<<<<<<<<<<<< NOTE: Test is executed on environment: "+System.getProperty("env_name"));
+        logger.info("<<<<<<<<<<<<<<<<<< Driver initiated properly");
     }
 
     @AfterAll
@@ -37,4 +39,5 @@ public class TestBase {
         driver.quit();
         logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
     }
+
 }
