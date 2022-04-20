@@ -11,9 +11,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class SearchResultsPageTest extends TestBase {
     private static Logger logger = LoggerFactory.getLogger("SearchResultsPageTest.class");
 
-    public SearchResultsPageTest(){
-        super(driver);
-    }
 
     @Test
     public void shouldMatchProductNamesOnSearchResultsPage(){

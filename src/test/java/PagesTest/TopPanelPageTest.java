@@ -10,10 +10,6 @@ import static org.hamcrest.Matchers.containsString;
 public class TopPanelPageTest extends TestBase {
     private static Logger logger = LoggerFactory.getLogger("TopPanelPageTest.class");
 
-    public TopPanelPageTest(){
-        super(driver);
-    }
-
     @Test
     public void shouldMatchProductNamesOnDropdown() {
         String productName = mainPage.getRandomProductNameFromMainPage();

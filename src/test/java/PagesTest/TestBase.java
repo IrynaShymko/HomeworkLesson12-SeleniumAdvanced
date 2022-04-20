@@ -1,6 +1,8 @@
 package PagesTest;
 import Base.BasePage;
+import Pages.FooterPage;
 import Pages.MainPage;
+import Pages.ProductDetailsPage;
 import Pages.TopPanelPage;
 import Properties.AppProperties;
 import Properties.BrowserEnvironment;
@@ -13,18 +15,15 @@ import org.junit.jupiter.api.BeforeAll;
 
 import org.openqa.selenium.WebDriver;
 
-public class TestBase extends BasePage {
+public class TestBase {
     private static Logger logger = LoggerFactory.getLogger("PagesTest.TestBase.class");
     protected static WebDriver driver;
     private static AppProperties appProperties;
     private static BrowserEnvironment browserEnvironment;
     MainPage mainPage = new MainPage(driver);
     TopPanelPage topPanelPage=new TopPanelPage(driver);
+    FooterPage footerPage = new FooterPage(driver);
 
-    public TestBase (WebDriver driver) {
-        super(driver);
-        logger.info("########## TestBase page is created");
-    }
 
     @BeforeAll
     static void beforeAll() {

@@ -18,6 +18,8 @@ environment:
     lastName: Einstein
     email: ae@example.com
     password: ae123456
+    titleOnSalePage: ON SALE
+    discountSize: 20.00
     command1: Browser Commands
     command2: Navigation Commands
     expectedMessage: Form send with success
@@ -31,6 +33,8 @@ environment:
     lastName: DaVinci
     email: ld@example.com
     password: ld123456
+    titleOnSalePage: ON SALE
+    discountSize: 20.00
     command1: Switch Commands
     command2: Wait Commands
     expectedMessage: Form send with success
@@ -44,6 +48,8 @@ environment:
     lastName: Jackson
     email: JJ@example.com
     password: jj123456
+    titleOnSalePage: ON SALE
+    discountSize: 20.00
     command1: Browser Commands
     command2: Navigation Commands
     expectedMessage: Form send with success

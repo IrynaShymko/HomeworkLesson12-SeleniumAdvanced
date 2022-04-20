@@ -21,9 +21,6 @@ public class SubcategoryPageTest extends TestBase {
     private List<Boolean> confirmationCountOfProducts = new ArrayList<>();
     private static Logger logger = LoggerFactory.getLogger("CategoryPageTest.class");
 
-    public SubcategoryPageTest() {
-        super(driver);
-    }
 
     @Test
     public void shouldMatchInfoInCategories() {

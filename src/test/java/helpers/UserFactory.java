@@ -1,15 +1,12 @@
 package helpers;
 
+import Base.BasePage;
 import PagesTest.TestBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UserFactory extends TestBase {
     private static Logger logger = LoggerFactory.getLogger("UserFactory.class");
-
-    public UserFactory(){
-        super(driver);
-    }
 
     public static User getAlreadyRegisteredUser() {
         User alreadyRegisteredUser = new User.UserBuilder()
