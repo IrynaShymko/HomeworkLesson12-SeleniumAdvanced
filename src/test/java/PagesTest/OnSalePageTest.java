@@ -17,16 +17,16 @@ public class OnSalePageTest extends TestBase{
         OnSalePage onSalePage= new OnSalePage(driver);
 
         assertAll("Error in onSalePage",
-                () -> assertEquals(onSalePage.getTitleOnSalePage(), System.getProperty("titleOnSalePage")),
-                () -> assertTrue(onSalePage.isDisplayedDiscountLabelOnProduct()),
-                () -> assertTrue(onSalePage.isDisplayedTwoPricesOnProduct()),
-                () -> assertTrue(onSalePage.isDiscountedPriceLowerThanRegularOnDiscountSize()));
+                () -> assertEquals(onSalePage.getTitleOnSalePage(), System.getProperty("titleOnSalePage"), "Title on OnSale Page and title expected are different"),
+                () -> assertTrue(onSalePage.isDisplayedDiscountLabelOnProduct(), "OnSalePage: Discount Label On Product is not displayed"),
+                () -> assertTrue(onSalePage.isDisplayedTwoPricesOnProduct(), "OnSalePage: Regular or discounted prices are not displayed"),
+                () -> assertTrue(onSalePage.isDiscountedPriceLowerThanRegularOnDiscountSize(), "OnSalePage: Difference between regular and discounted price is incorrect"));
        onSalePage.clickRandomValueFromListOfProductsOnSale();
        ProductDetailsPage productDetailsPage =new ProductDetailsPage(driver);
 
                 assertAll("Error in productDetailsPage",
-                () -> assertTrue(productDetailsPage.hasProductPageDiscountLabel()),
-                () -> assertTrue(productDetailsPage.isDisplayedTwoPricesOnProduct()),
-                () -> assertTrue(productDetailsPage.OnProductDetailsIsDiscountedPriceLowerThanRegularOnDiscountSize()));
+                () -> assertTrue(productDetailsPage.hasProductPageDiscountLabel(), "productDetailsPage: Discount Label On Product is not displaed"),
+                () -> assertTrue(productDetailsPage.isDisplayedTwoPricesOnProduct(), "productDetailsPage: Regular or discounted prices are not displayed"),
+                () -> assertTrue(productDetailsPage.OnProductDetailsIsDiscountedPriceLowerThanRegularOnDiscountSize(), "productDetailsPage: Difference between regular and discounted price is incorrect"));
     }
 }
