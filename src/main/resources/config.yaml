@@ -20,6 +20,10 @@ environment:
     password: ae123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
+    maxValue1: 10
+    maxValue2: 27
+    minValue1: 9
+    minValue2: 11
     command1: Browser Commands
     command2: Navigation Commands
     expectedMessage: Form send with success
@@ -35,6 +39,10 @@ environment:
     password: ld123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
+    maxValue1: 10
+    maxValue2: 27
+    minValue1: 9
+    minValue2: 11
     command1: Switch Commands
     command2: Wait Commands
     expectedMessage: Form send with success
@@ -50,6 +58,10 @@ environment:
     password: jj123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
+    maxValue1: 10
+    maxValue2: 27
+    minValue1: 9
+    minValue2: 11
     command1: Browser Commands
     command2: Navigation Commands
     expectedMessage: Form send with success

@@ -33,10 +33,10 @@ public class TestBase {
         logger.info("<<<<<<<<<<<<<<<<<< Driver initiated properly");
     }
 
-    @AfterAll
-    static void tearDown() {
-        driver.quit();
-        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
-    }
+//    @AfterAll
+//    static void tearDown() {
+//        driver.quit();
+//        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
+//    }
 
 }

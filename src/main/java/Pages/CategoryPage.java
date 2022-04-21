@@ -1,9 +1,12 @@
 package Pages;
 
 import Base.BasePage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,30 +36,130 @@ public class CategoryPage extends BasePage {
     @FindBy(xpath = "//ul[@class='category-sub-menu']//a")
     private List<WebElement> subcategoryList;
 
+    @FindBy(xpath = "//li//p")
+    private WebElement priceMark;
 
-    public String getCategoryTitle(){
-        logger.info("<<<<<<<<<< Category title is: "+categoryTitle.getText());
-       return categoryTitle.getText();
+    @FindBy(xpath = "//a[contains(@class, \"ui-slider-handle ui-state-default ui-corner-all\")][last()]")
+    private WebElement topBoundSliderHandler;
+
+    @FindBy(xpath = "//div[contains(@id, 'slider-range')]//a[1]")
+    private WebElement bottomBoundSliderHandler;
+
+    @FindBy(xpath = "//span[@class='price']")
+    private List<WebElement> pricesFilteredProductsList;
+
+    public String getCategoryTitle() {
+        logger.info("<<<<<<<<<< Category title is: " + categoryTitle.getText());
+        return categoryTitle.getText();
     }
 
-    public Boolean isDisplayedCategorySideBarMenu (){
-        if (categorySideBarMenu !=null){
+    public Boolean isDisplayedCategorySideBarMenu() {
+        if (categorySideBarMenu != null) {
             logger.info("<<<<<<<<<< Category side bar menu is displayed");
             return true;
+        } else {
+            return false;
         }
-        else {return false;}
     }
 
-    public Boolean accordingCountProductsWithConfirmationMessage(){
-        if(countConfirmationMessage.getText().contains(String.valueOf(foundedInCategoryProductsList.size()))){
-            logger.info("<<<<<<<<<< Count confirmationMessage is: "+countConfirmationMessage.getText() );
-            logger.info("<<<<<<<<<< Count of founded products is: "+ foundedInCategoryProductsList.size());
+    public Boolean accordingCountProductsWithConfirmationMessage() {
+        if (countConfirmationMessage.getText().contains(String.valueOf(foundedInCategoryProductsList.size()))) {
+            logger.info("<<<<<<<<<< Count confirmationMessage is: " + countConfirmationMessage.getText());
+            logger.info("<<<<<<<<<< Count of founded products is: " + foundedInCategoryProductsList.size());
             return true;
+        } else {
+            return false;
         }
-        else {return false;}
     }
 
-    public List<WebElement> getSubcategories(){
+    public List<WebElement> getSubcategories() {
         return subcategoryList;
     }
+
+    public void navigateToPriceFilter() {
+        scrollToElement(priceMark);
+    }
+
+    public void moveTopSliderHandler(int valuesToStop) {
+        int index = priceMark.getText().indexOf("- $") + 3;
+        int currentValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(index))));
+        logger.info("<<<<<<<<<< Current value is " + currentValue);
+        int howMuchStepsNeedDo = valuesToStop - currentValue;
+        logger.info("<<<<<<<<<< howMuchStepsNeedDoTopHandler is " + howMuchStepsNeedDo);
+
+        while (howMuchStepsNeedDo != 0) {
+            if (howMuchStepsNeedDo > 0) {
+                goRight(howMuchStepsNeedDo, topBoundSliderHandler);
+            }
+            if (howMuchStepsNeedDo < 0) {
+                goLeft(howMuchStepsNeedDo, topBoundSliderHandler);
+            }
+            currentValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(index))));
+            howMuchStepsNeedDo = valuesToStop - currentValue;
+        }
+    }
+
+
+    public void moveBottomSliderHandler(int valueBottomStop) {
+        int indexStart = priceMark.getText().indexOf("$") + 1;
+        int indexEnd = priceMark.getText().indexOf(" - $");
+        int currentLowValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(indexStart, indexEnd))));
+        logger.info("<<<<<<<<<< CurrentLowValue  is " + currentLowValue);
+        int howMuchStepsNeedDoLow = valueBottomStop - currentLowValue;
+        logger.info("<<<<<<<<<< HowMuchStepsNeedDoLowHandler is " + howMuchStepsNeedDoLow);
+
+        while (howMuchStepsNeedDoLow != 0) {
+            if (howMuchStepsNeedDoLow > 0) {
+                goRight(howMuchStepsNeedDoLow, bottomBoundSliderHandler);
+            }
+            if (howMuchStepsNeedDoLow < 0) {
+                goLeft(howMuchStepsNeedDoLow, bottomBoundSliderHandler);
+            }
+            currentLowValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(indexStart, indexEnd))));
+            howMuchStepsNeedDoLow = valueBottomStop - currentLowValue;
+        }
+    }
+
+    private void goRight(int steps, WebElement webElement) {
+        logger.info("<<<<<<<<<< go right ");
+        try {
+            for (int i = 0; i < steps; i++) {
+                webElement.sendKeys(Keys.ARROW_RIGHT);
+//                logger.info("<<<<<<<<<< go right " + (i + 1));
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goLeft(int steps, WebElement webElement) {
+        logger.info("<<<<<<<<<< go left ");
+        try {
+            for (int i = 0; i < Math.abs(steps); i++) {
+                webElement.sendKeys(Keys.ARROW_LEFT);
+//                logger.info("<<<<<<<<<< go left " + (i + 1));
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean isPriceInChosenBounds(int minValue, int maxValue) {
+        Boolean result = false;
+        for (int i = 0; i < pricesFilteredProductsList.size(); i++) {
+            logger.info("<<<<<<<<<< MinValue is "+minValue+" ,MaxValue is "+maxValue);
+            logger.info("<<<<<<<<<< Price is "+Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
+
+            if (minValue <= Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) &&
+                    Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) <= maxValue) {
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+        return result;
+    }
 }
+

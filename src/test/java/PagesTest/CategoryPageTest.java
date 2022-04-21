@@ -41,8 +41,8 @@ public class CategoryPageTest extends TestBase {
         logger.info("<<<<<<<<<< List of matches count of products confirmations: " + confirmationCountOfProducts);
 
         assertAll("Error in categories",
-                () -> assertEquals(categoryNamesOnTopPanel, categoryTitlesOnPage),
-                () -> assertEquals(successResult, confirmationOfDisplayingSideBar),
-                () -> assertEquals(successResult, confirmationCountOfProducts));
+                () -> assertEquals(categoryNamesOnTopPanel, categoryTitlesOnPage, "CategoryPage: Different titles on top panel and categoryPage"),
+                () -> assertEquals(successResult, confirmationOfDisplayingSideBar, "CategoryPage: Side bar is not displayed"),
+                () -> assertEquals(successResult, confirmationCountOfProducts, "CategoryPage: Count of products is incorrect"));
     }
 }

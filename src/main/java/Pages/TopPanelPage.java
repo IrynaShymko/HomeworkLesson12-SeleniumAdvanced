@@ -28,6 +28,9 @@ public class TopPanelPage extends BasePage {
     @FindBy(xpath = "//ul[@id='ui-id-1']/li")
     private WebElement proposedProductInDropdownQuickSearch;
 
+    @FindBy(xpath = "//a[contains(text(), 'Art')]")
+    private WebElement artCategory;
+
     @FindBy(xpath = "//a[@class='dropdown-item']")
     private List <WebElement> categoriesList;
 
@@ -54,5 +57,7 @@ public class TopPanelPage extends BasePage {
         return categoriesList;
     }
 
-
+    public void navigateToArtCategory(){
+        clickOnElement(artCategory);
+    }
 }
