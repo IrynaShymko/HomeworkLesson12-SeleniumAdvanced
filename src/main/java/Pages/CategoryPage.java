@@ -141,6 +141,7 @@ public class CategoryPage extends BasePage {
     public Boolean isPriceInChosenBounds(int minValue, int maxValue) {
         Boolean result = false;
         for (int i = 0; i < pricesFilteredProductsList.size(); i++) {
+            logger.info("<<<<<<<<<< Checking if price is between chosen boundaries:");
             logger.info("<<<<<<<<<< MinValue is " + minValue + " ,MaxValue is " + maxValue);
             logger.info("<<<<<<<<<< Price is " + Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
 
@@ -159,7 +160,7 @@ public class CategoryPage extends BasePage {
     }
 
     public void filterByPrice(int minVal, int maxVal) {
-        logger.info("<<<<<<<<<< Filter values");
+        logger.info("<<<<<<<<<< Filter values: min - " + minVal + " ,max - " + maxVal);
         moveTopSliderHandler(maxVal);
         moveBottomSliderHandler(minVal);
     }
