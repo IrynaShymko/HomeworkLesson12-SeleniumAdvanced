@@ -39,7 +39,7 @@ public class CategoryPage extends BasePage {
     @FindBy(xpath = "//li//p")
     private WebElement priceMark;
 
-    @FindBy(xpath = "//a[contains(@class, \"ui-slider-handle ui-state-default ui-corner-all\")][last()]")
+    @FindBy(xpath = "//a[contains(@class, 'ui-slider-handle ui-state-default ui-corner-all')][last()]")
     private WebElement topBoundSliderHandler;
 
     @FindBy(xpath = "//div[contains(@id, 'slider-range')]//a[1]")
@@ -80,12 +80,12 @@ public class CategoryPage extends BasePage {
         scrollToElement(priceMark);
     }
 
-    public void moveTopSliderHandler(int valuesToStop) {
+    public void moveTopSliderHandler(int valueTopToStop) {
         int index = priceMark.getText().indexOf("- $") + 3;
         int currentValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(index))));
-        logger.info("<<<<<<<<<< Current value is " + currentValue);
-        int howMuchStepsNeedDo = valuesToStop - currentValue;
-        logger.info("<<<<<<<<<< howMuchStepsNeedDoTopHandler is " + howMuchStepsNeedDo);
+        logger.info("<<<<<<<<<< Current top value is " + currentValue);
+        int howMuchStepsNeedDo = valueTopToStop - currentValue;
+        logger.info("<<<<<<<<<< Steps needs do TopHandler: " + howMuchStepsNeedDo);
 
         while (howMuchStepsNeedDo != 0) {
             if (howMuchStepsNeedDo > 0) {
@@ -95,18 +95,17 @@ public class CategoryPage extends BasePage {
                 goLeft(howMuchStepsNeedDo, topBoundSliderHandler);
             }
             currentValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(index))));
-            howMuchStepsNeedDo = valuesToStop - currentValue;
+            howMuchStepsNeedDo = valueTopToStop - currentValue;
         }
     }
-
 
     public void moveBottomSliderHandler(int valueBottomStop) {
         int indexStart = priceMark.getText().indexOf("$") + 1;
         int indexEnd = priceMark.getText().indexOf(" - $");
         int currentLowValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(indexStart, indexEnd))));
-        logger.info("<<<<<<<<<< CurrentLowValue  is " + currentLowValue);
+        logger.info("<<<<<<<<<< Current lower value  is " + currentLowValue);
         int howMuchStepsNeedDoLow = valueBottomStop - currentLowValue;
-        logger.info("<<<<<<<<<< HowMuchStepsNeedDoLowHandler is " + howMuchStepsNeedDoLow);
+        logger.info("<<<<<<<<<< Steps needs do LowHandler: " + howMuchStepsNeedDoLow);
 
         while (howMuchStepsNeedDoLow != 0) {
             if (howMuchStepsNeedDoLow > 0) {
@@ -125,7 +124,6 @@ public class CategoryPage extends BasePage {
         try {
             for (int i = 0; i < steps; i++) {
                 webElement.sendKeys(Keys.ARROW_RIGHT);
-//                logger.info("<<<<<<<<<< go right " + (i + 1));
                 Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
@@ -138,7 +136,6 @@ public class CategoryPage extends BasePage {
         try {
             for (int i = 0; i < Math.abs(steps); i++) {
                 webElement.sendKeys(Keys.ARROW_LEFT);
-//                logger.info("<<<<<<<<<< go left " + (i + 1));
                 Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
