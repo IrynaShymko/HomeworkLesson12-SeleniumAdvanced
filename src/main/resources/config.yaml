@@ -11,7 +11,6 @@ browserProperties:
 
 environment:
   intEnv:
-#    appUrl: https://seleniumui.moderntester.pl/form.php
     appUrl: http://146.59.32.4/
     env_name: intEnv
     firstName: Albert
@@ -21,7 +20,7 @@ environment:
     titleOnSalePage: ON SALE
     discountSize: 20.00
     maxValue1: 10
-    maxValue2: 27
+    maxValue2: 29
     minValue1: 9
     minValue2: 11
     command1: Browser Commands
@@ -31,7 +30,7 @@ environment:
     active: true
 
   testEnv:
-    appUrl: https://seleniumui.moderntester.pl/form.php
+    appUrl: http://146.59.32.4/
     env_name: testEnv
     firstName: Leonardo
     lastName: DaVinci
@@ -40,7 +39,7 @@ environment:
     titleOnSalePage: ON SALE
     discountSize: 20.00
     maxValue1: 10
-    maxValue2: 27
+    maxValue2: 29
     minValue1: 9
     minValue2: 11
     command1: Switch Commands
@@ -50,7 +49,7 @@ environment:
     active: false
 
   defaultEnv:
-    appUrl: https://seleniumui.moderntester.pl/form.php
+    appUrl: http://146.59.32.4/
     env_name: defaultEnv
     firstName: Jack
     lastName: Jackson
@@ -59,7 +58,7 @@ environment:
     titleOnSalePage: ON SALE
     discountSize: 20.00
     maxValue1: 10
-    maxValue2: 27
+    maxValue2: 29
     minValue1: 9
     minValue2: 11
     command1: Browser Commands

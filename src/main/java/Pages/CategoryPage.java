@@ -2,11 +2,7 @@ package Pages;
 
 import Base.BasePage;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +44,9 @@ public class CategoryPage extends BasePage {
     @FindBy(xpath = "//span[@class='price']")
     private List<WebElement> pricesFilteredProductsList;
 
+    @FindBy(xpath = "//div[@id='_desktop_search_filters_clear_all']/button")
+    private WebElement clearFiltersButton;
+
     public String getCategoryTitle() {
         logger.info("<<<<<<<<<< Category title is: " + categoryTitle.getText());
         return categoryTitle.getText();
@@ -76,11 +75,7 @@ public class CategoryPage extends BasePage {
         return subcategoryList;
     }
 
-    public void navigateToPriceFilter() {
-        scrollToElement(priceMark);
-    }
-
-    public void moveTopSliderHandler(int valueTopToStop) {
+    private void moveTopSliderHandler(int valueTopToStop) {
         int index = priceMark.getText().indexOf("- $") + 3;
         int currentValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(index))));
         logger.info("<<<<<<<<<< Current top value is " + currentValue);
@@ -99,7 +94,7 @@ public class CategoryPage extends BasePage {
         }
     }
 
-    public void moveBottomSliderHandler(int valueBottomStop) {
+    private void moveBottomSliderHandler(int valueBottomStop) {
         int indexStart = priceMark.getText().indexOf("$") + 1;
         int indexEnd = priceMark.getText().indexOf(" - $");
         int currentLowValue = Integer.parseInt(String.format("%.0f", Double.parseDouble(priceMark.getText().substring(indexStart, indexEnd))));
@@ -146,8 +141,8 @@ public class CategoryPage extends BasePage {
     public Boolean isPriceInChosenBounds(int minValue, int maxValue) {
         Boolean result = false;
         for (int i = 0; i < pricesFilteredProductsList.size(); i++) {
-            logger.info("<<<<<<<<<< MinValue is "+minValue+" ,MaxValue is "+maxValue);
-            logger.info("<<<<<<<<<< Price is "+Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
+            logger.info("<<<<<<<<<< MinValue is " + minValue + " ,MaxValue is " + maxValue);
+            logger.info("<<<<<<<<<< Price is " + Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
 
             if (minValue <= Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) &&
                     Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) <= maxValue) {
@@ -157,6 +152,16 @@ public class CategoryPage extends BasePage {
             }
         }
         return result;
+    }
+
+    public void clearFilter() {
+        clickOnElement(clearFiltersButton);
+    }
+
+    public void filterByPrice(int minVal, int maxVal) {
+        logger.info("<<<<<<<<<< Filter values");
+        moveTopSliderHandler(maxVal);
+        moveBottomSliderHandler(minVal);
     }
 }
 
