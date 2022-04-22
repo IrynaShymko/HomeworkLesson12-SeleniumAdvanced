@@ -36,12 +36,12 @@ public class BasePage {
         logger.info("<<<<<<<<<< Click on element: " + webElement.getText());
     }
 
-    public void hoverAndDoubleClick(WebElement webElement) {
+    public void hoverAndClick(WebElement webElement) {
         actions = new Actions(driver);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         actions.moveToElement(webElement).perform();
-        actions.moveToElement(webElement).doubleClick().perform();
-        logger.info("<<<<<<<<<< Hover and double click on element: " + webElement.getText());
+        actions.moveToElement(webElement).click().perform();
+        logger.info("<<<<<<<<<< Hover and click on element: " + webElement.getText());
     }
 
     public String getTextFromAlert() {
@@ -84,5 +84,11 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();"
                 , webElement);
         logger.info("<<<<<<<<<< Scroll to element: " + webElement.getText());
+    }
+
+    public int getRandomValueFromChosenBoundaries(int minimumValue, int maximumValue){
+        int x = Integer.parseInt(String.format("%.0f",(Math.random()*(maximumValue-minimumValue))+minimumValue));
+        logger.info("<<<<<<<<<< Random value is "+x);
+        return x;
     }
 }

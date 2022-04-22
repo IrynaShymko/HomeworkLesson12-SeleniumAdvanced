@@ -1,6 +1,7 @@
 package Pages;
 
 import Base.BasePage;
+import Helpers.ProductBox;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,14 +33,17 @@ public class TopPanelPage extends BasePage {
     private WebElement artCategory;
 
     @FindBy(xpath = "//a[@class='dropdown-item']")
-    private List <WebElement> categoriesList;
+    private List<WebElement> categoriesList;
 
-    public TopPanelPage fillSearchField(String value){
+    @FindBy(xpath = "//span[@class='cart-products-count']")
+    private WebElement quantityProductsOnCartIcon;
+
+    public TopPanelPage fillSearchField(String value) {
         sendKeys(searchField, value);
         return this;
     }
 
-    public void clickSearchButton(){
+    public void clickSearchButton() {
         clickOnElement(searchButton);
     }
 
@@ -48,16 +52,36 @@ public class TopPanelPage extends BasePage {
         clickSearchButton();
     }
 
-    public String getProposedProductNameFromDropdown(){
+    public String getProposedProductNameFromDropdown() {
         wait.until(ExpectedConditions.visibilityOf(proposedProductInDropdownQuickSearch));
         return proposedProductInDropdownQuickSearch.getText();
     }
 
-    public List <WebElement> getCategoriesList(){
+    public List<WebElement> getCategoriesList() {
         return categoriesList;
     }
 
-    public void navigateToArtCategory(){
+    public void navigateToArtCategory() {
         clickOnElement(artCategory);
     }
+
+    public void chooseRandomCategory() {
+        chooseRandomValueFromList(categoriesList).click();
+    }
+
+
+    public Boolean isQuantityOnCartIconOnTopPanelTheSameInBox(ProductBox productBox) {
+        int quantityOnTopPanel = Integer.parseInt(quantityProductsOnCartIcon.getText().substring(1, quantityProductsOnCartIcon.getText().indexOf(")")));
+        int quantityInBox = productBox.getTotalQuantityProductsInBox();
+        logger.info("<<<<<<<<<< quantityOnTopPannel: " + quantityOnTopPanel);
+        logger.info("<<<<<<<<<< quantityInBox: " + quantityInBox);
+
+        if (quantityOnTopPanel == quantityInBox) {
+            return true;
+        } else return false;
+    }
+
 }
+
+
+

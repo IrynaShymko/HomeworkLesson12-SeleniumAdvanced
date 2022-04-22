@@ -155,14 +155,14 @@ public class CategoryPage extends BasePage {
         return result;
     }
 
-    public void clearFilter() {
-        clickOnElement(clearFiltersButton);
-    }
-
     public void filterByPrice(int minVal, int maxVal) {
         logger.info("<<<<<<<<<< Filter values: min - " + minVal + " ,max - " + maxVal);
         moveTopSliderHandler(maxVal);
         moveBottomSliderHandler(minVal);
+    }
+
+    public void chooseRandomProductInCategory(){
+        chooseRandomValueFromList(foundedInCategoryProductsList).click();
     }
 }
 
