@@ -2,15 +2,12 @@ package Pages;
 
 import Base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.util.List;
 
 public class OnSalePage extends BasePage {
@@ -27,7 +24,6 @@ public class OnSalePage extends BasePage {
     @FindBy(xpath = "//div[@itemprop='itemListElement']")
     private List<WebElement> productsOnSaleList;
 
-//    @FindBy(xpath = "//div[@class='thumbnail-container reviews-loaded']/a")
     @FindBy(xpath = "//h2[@class=\"h3 product-title\"]")
     private WebElement imagesOnSaleList;
 

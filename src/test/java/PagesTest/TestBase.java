@@ -32,11 +32,11 @@ public class TestBase {
         driver=new DriverFactory().getDriver(new YMLreader().getConfiguration().getBrowserConfig().getBrowserEnum());
         logger.info("<<<<<<<<<<<<<<<<<< Driver initiated properly");
     }
-
-    @AfterAll
-    static void tearDown() {
-        driver.quit();
-        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
-    }
+//
+//    @AfterAll
+//    static void tearDown() {
+//        driver.quit();
+//        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
+//    }
 
 }

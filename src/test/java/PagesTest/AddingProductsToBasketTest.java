@@ -3,7 +3,6 @@ package PagesTest;
 import Pages.CategoryPage;
 import Pages.ModalCartPage;
 import Pages.ProductDetailsPage;
-import Helpers.BoxHelper;
 import Helpers.ProductBox;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddingProductsToBasketTest extends TestBase {
+    private static int timesToRepeat = 3;
     private static Logger logger = LoggerFactory.getLogger("AddingProductsToBasketTest.class");
     private int maxQuantityOfProduct = 5;
     private int minQuantityOfProduct = 1;
@@ -22,7 +22,7 @@ public class AddingProductsToBasketTest extends TestBase {
 
     @Test
     public void  shouldSuccessfullyAddToShoppingCart() {
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<timesToRepeat; i++) {
             topPanelPage.chooseRandomCategory();
             categoryPage.chooseRandomProductInCategory();
             productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct);
@@ -31,7 +31,7 @@ public class AddingProductsToBasketTest extends TestBase {
             assertTrue(modalCartPage.isProductInfoInCartTheSameInProductBox(productBox), "Products are different");
             assertTrue(modalCartPage.isCommonInfoInCartTheSameInProductBox(productBox), "Common Info is different");
             modalCartPage.clickContinueShoppingButton();
-            assertTrue(topPanelPage.isQuantityOnCartIconOnTopPanelTheSameInBox(productBox), "QuantityOnCartIconOnTopPanel IS NOT TheSameInBox");
+            assertTrue(topPanelPage.isQuantityOnCartIconOnTopPanelTheSameInBox(productBox), "QuantityOnCartIconOnTopPanel is not TheSameInBox");
         }
 
     }

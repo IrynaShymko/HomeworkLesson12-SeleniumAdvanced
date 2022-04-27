@@ -19,12 +19,16 @@ environment:
     password: ae123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
-    maxValue1: 10
-    maxValue2: 29
-    minValue1: 9
-    minValue2: 11
-    command1: Browser Commands
-    command2: Navigation Commands
+    productNameWithBlockedCartButton: CUSTOMIZABLE MUG
+    customizationMessage: qwerty
+    shippingCost: 7.0
+    Address: Poloneza street, 50
+    City: Warsaw
+    Country: Poland
+    PostalCode: 05-500
+    DeliveryOptionName: My carrier
+    PaymentStatus: Awaiting bank wire payment
+    SynonymicNameBankWirePaymentMethod: Bank transfer
     expectedMessage: Form send with success
     pathToFileForUpload: src/main/resources/fileForUpload.txt
     active: true
@@ -38,12 +42,16 @@ environment:
     password: ld123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
-    maxValue1: 10
-    maxValue2: 29
-    minValue1: 9
-    minValue2: 11
-    command1: Switch Commands
-    command2: Wait Commands
+    productNameWithBlockedCartButton: CUSTOMIZABLE MUG
+    customizationMessage: qwerty
+    shippingCost: 7.0
+    Address: Poloneza street, 50
+    City: Warsaw
+    Country: Poland
+    PostalCode: 05-500
+    DeliveryOptionName: My carrier
+    PaymentStatus: Awaiting bank wire payment
+    SynonymicNameBankWirePaymentMethod: Bank transfer
     expectedMessage: Form send with success
     pathToFileForUpload: src/main/resources/fileForUpload.txt
     active: false
@@ -57,12 +65,16 @@ environment:
     password: jj123456
     titleOnSalePage: ON SALE
     discountSize: 20.00
-    maxValue1: 10
-    maxValue2: 29
-    minValue1: 9
-    minValue2: 11
-    command1: Browser Commands
-    command2: Navigation Commands
+    productNameWithBlockedCartButton: CUSTOMIZABLE MUG
+    customizationMessage: qwerty
+    shippingCost: 7.0
+    Address: Poloneza street, 50
+    City: Warsaw
+    Country: Poland
+    PostalCode: 05-500
+    DeliveryOptionName: My carrier
+    PaymentStatus: Awaiting bank wire payment
+    SynonymicNameBankWirePaymentMethod: Bank transfer
     expectedMessage: Form send with success
     pathToFileForUpload: src/main/resources/fileForUpload.txt
     active: false

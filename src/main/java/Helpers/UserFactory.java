@@ -1,11 +1,10 @@
-package helpers;
+package Helpers;
 
-import Base.BasePage;
-import PagesTest.TestBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserFactory extends TestBase {
+public class UserFactory {
+
     private static Logger logger = LoggerFactory.getLogger("UserFactory.class");
 
     public static User getAlreadyRegisteredUser() {

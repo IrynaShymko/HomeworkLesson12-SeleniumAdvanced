@@ -38,6 +38,15 @@ public class TopPanelPage extends BasePage {
     @FindBy(xpath = "//span[@class='cart-products-count']")
     private WebElement quantityProductsOnCartIcon;
 
+    @FindBy(xpath = "//span[contains(text(), 'Cart')]")
+    private WebElement cartIcon;
+
+    @FindBy(xpath = "//a[@title='Log in to your customer account']")
+    private WebElement signInButton;
+
+    @FindBy(xpath = "//a[@title='View my customer account']")
+    private WebElement accountLink;
+
     public TopPanelPage fillSearchField(String value) {
         sendKeys(searchField, value);
         return this;
@@ -73,12 +82,27 @@ public class TopPanelPage extends BasePage {
     public Boolean isQuantityOnCartIconOnTopPanelTheSameInBox(ProductBox productBox) {
         int quantityOnTopPanel = Integer.parseInt(quantityProductsOnCartIcon.getText().substring(1, quantityProductsOnCartIcon.getText().indexOf(")")));
         int quantityInBox = productBox.getTotalQuantityProductsInBox();
-        logger.info("<<<<<<<<<< quantityOnTopPannel: " + quantityOnTopPanel);
+        logger.info("<<<<<<<<<< quantityOnTopPanel: " + quantityOnTopPanel);
         logger.info("<<<<<<<<<< quantityInBox: " + quantityInBox);
 
         if (quantityOnTopPanel == quantityInBox) {
             return true;
         } else return false;
+    }
+
+    public void clickCartIcon(){
+        wait.until(ExpectedConditions.elementToBeClickable(cartIcon));
+        hoverAndDoubleClick(cartIcon);
+    }
+
+    public void clickSignInButton(){
+        signInButton.click();
+        logger.info("<<<<<<<<<< Click SignIn button");
+    }
+
+    public void navigateToAccountPage(){
+        accountLink.click();
+        logger.info("<<<<<<<<<< Navigate to account page");
     }
 
 }

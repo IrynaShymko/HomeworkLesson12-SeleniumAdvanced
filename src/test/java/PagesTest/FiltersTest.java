@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FiltersTest extends TestBase {
     private CategoryPage categoryPage = new CategoryPage(driver);
-    private int minValue1 = Integer.parseInt(System.getProperty("minValue1"));
-    private int maxValue1 = Integer.parseInt(System.getProperty("maxValue1"));
-    private int minValue2 = Integer.parseInt(System.getProperty("minValue2"));
-    private int maxValue2 = Integer.parseInt(System.getProperty("maxValue2"));
+    private int minValue1 = 9;
+    private int maxValue1 = 10;
+    private int minValue2 = 11;
+    private int maxValue2 = 29;
     private static Logger logger = LoggerFactory.getLogger("FiltersTest.class");
 
     @Test

@@ -1,4 +1,4 @@
-package helpers;
+package Helpers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,9 +61,5 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public static Logger getLogger() {
-        return logger;
     }
 }

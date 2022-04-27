@@ -1,7 +1,7 @@
 //package PagesTest;
 //
-//import helpers.User;
-//import helpers.UserFactory;
+//import Helpers.User;
+//import Helpers.UserFactory;
 //import org.junit.jupiter.api.Test;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

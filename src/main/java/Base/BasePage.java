@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
@@ -41,6 +43,14 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         actions.moveToElement(webElement).perform();
         actions.moveToElement(webElement).click().perform();
+        logger.info("<<<<<<<<<< Hover and click on element: " + webElement.getText());
+    }
+
+    public void hoverAndDoubleClick(WebElement webElement) {
+        actions = new Actions(driver);
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        actions.moveToElement(webElement).perform();
+        actions.moveToElement(webElement).doubleClick().perform();
         logger.info("<<<<<<<<<< Hover and click on element: " + webElement.getText());
     }
 
@@ -90,5 +100,11 @@ public class BasePage {
         int x = Integer.parseInt(String.format("%.0f",(Math.random()*(maximumValue-minimumValue))+minimumValue));
         logger.info("<<<<<<<<<< Random value is "+x);
         return x;
+    }
+
+    public String getDateToday(){
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return String.valueOf(date.format(formatter));
     }
 }

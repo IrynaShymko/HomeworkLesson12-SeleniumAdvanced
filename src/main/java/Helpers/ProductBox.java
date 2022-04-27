@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ProductBox {
@@ -20,7 +19,7 @@ public class ProductBox {
             for (Product product : products) {
                 totalOrderCost += product.getPrice()*product.getQuantity();
             }
-            return totalOrderCost;
+            return totalOrderCost + Double.parseDouble(System.getProperty("shippingCost"));
         } else return 0.0;
     }
 
@@ -44,8 +43,9 @@ public class ProductBox {
         this.totalQuantityProductsInBox = totalQuantityProductsInBox;
     }
 
-    public Double getTotalOrderCost() {
-        return getTotalOrderCostInBox(products);
+//    returns only cost of products without shipping
+    public Double getTotalOrderCostWithoutShipping() {
+        return getTotalOrderCostInBox(products)- Double.parseDouble(System.getProperty("shippingCost"));
     }
 
 }

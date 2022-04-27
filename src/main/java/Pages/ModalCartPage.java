@@ -16,6 +16,7 @@ public class ModalCartPage extends BasePage {
 
     public ModalCartPage(WebDriver driver) {
         super(driver);
+        logger.info("########## ModalCartPage is created");
     }
 
     @FindBy(xpath = "//h6")
@@ -35,6 +36,9 @@ public class ModalCartPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(), 'Continue shopping')]")
     private WebElement continueShoppingButton;
+
+    @FindBy(xpath = "//div[@class='cart-content-btn']/a")
+    private WebElement proceedToCheckoutButton;
 
 
     public String getProductNameFromModalCartWindow() {
@@ -74,7 +78,7 @@ public class ModalCartPage extends BasePage {
         int quantityOfProductOnModalCartWindow = Integer.parseInt(totalQuantityMessage.getText().substring(10, indexEnd));
         Double sumOfAllProductsOnModalCartWindow = Double.parseDouble(String.format("%.2f", Double.parseDouble(totalSumWithoutShipping.getText().substring(1))));
         int quantityInBox = productBox.getTotalQuantityProductsInBox();
-        Double sumOfAllProductsInBox = Double.parseDouble(String.format("%.2f",productBox.getTotalOrderCost()));
+        Double sumOfAllProductsInBox = Double.parseDouble(String.format("%.2f",productBox.getTotalOrderCostWithoutShipping()));
         logger.info("<<<<<<<<<< quantityOfProductOnModalCartWindow: " + quantityOfProductOnModalCartWindow);
         logger.info("<<<<<<<<<< quantityInBox: " + quantityInBox);
         logger.info("<<<<<<<<<< sumOfAllProductsOnModalCartWindow: " + sumOfAllProductsOnModalCartWindow);
@@ -87,6 +91,12 @@ public class ModalCartPage extends BasePage {
 
     public void clickContinueShoppingButton(){
         hoverAndClick(continueShoppingButton);
+        switchToLastOpenedWindow();
+    }
+
+    public void clickProceedToCheckoutButton(){
+        proceedToCheckoutButton.click();
+        logger.info("<<<<<<<<<< Click on element: PROCEED TO CHECKOUT");
         switchToLastOpenedWindow();
     }
 }

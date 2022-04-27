@@ -10,12 +10,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductDetailsPage extends BasePage {
     private WebDriver driver;
     private static Logger logger = LoggerFactory.getLogger("ProductDetailsPage.class");
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
+        logger.info("########## ProductDetailsPage is created");
     }
 
     @FindBy(xpath = "//h1")
@@ -35,6 +39,12 @@ public class ProductDetailsPage extends BasePage {
 
     @FindBy(xpath = "//input[@id='quantity_wanted']")
     private WebElement quantityOfProduct;
+
+    @FindBy(xpath = "//textarea[@class='product-message']")
+    private WebElement productMessageField;
+
+    @FindBy(xpath = "//button[@name='submitCustomizedData']")
+    private WebElement saveCustomizationMessageButton;
 
     public Boolean hasProductPageDiscountLabel() {
         Boolean result;
@@ -76,6 +86,11 @@ public class ProductDetailsPage extends BasePage {
     }
 
     public void chooseQuantityOfProduct(int minimumValue, int maximumValue) {
+        String productTitle = productNameOnProductDetailPage.getText();
+        if(productTitle.equals(System.getProperty("productNameWithBlockedCartButton"))){
+            clearFieldAndSendKeys(productMessageField, System.getProperty("customizationMessage")+getRandomValueFromChosenBoundaries(1,100));
+            hoverAndClick(saveCustomizationMessageButton);
+        }
         clearFieldAndSendKeys(quantityOfProduct, String.valueOf(getRandomValueFromChosenBoundaries(minimumValue, maximumValue)));
     }
 
@@ -97,6 +112,7 @@ public class ProductDetailsPage extends BasePage {
     }
 
     public void addProductToCart() {
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
         hoverAndClick(addToCartButton);
         switchToLastOpenedWindow();
     }
@@ -113,21 +129,31 @@ public class ProductDetailsPage extends BasePage {
         Product productCreated = buildProduct();
         if (productBox.getProducts().size() > 0) {
             for (int i = 0; i < productBox.getProducts().size(); i++) {
-                if (productBox.getProducts().get(i).isTheSameProduct(productCreated)) {
+                if (productBox.getProducts().get(i).isTheSameProduct(productCreated)&& !productBox.getProducts().get(i).getProductName().equals(System.getProperty("productNameWithBlockedCartButton"))) {
                     productBox.getProducts().get(i)
                             .setQuantity((productBox.getProducts().get(i).getQuantity()) + productCreated.getQuantity());
                     logger.info("<<<<<<<<<< QUANTITY OF PRODUCT UPDATED");
-                    break;
                 }
-                if (!productBox.getProducts().get(i).isTheSameProduct(productCreated)) {
-                    logger.info("<<<<<<<<<< PRODUCT ADDING in non empty list");
+            }
+
+            for (int i = 0; i < productBox.getProducts().size(); i++) {
+                if (productBox.getProducts().get(i).getProductName().equals(System.getProperty("productNameWithBlockedCartButton"))) {
                     productBox.getProducts().add(productCreated);
-                    break;
+                    logger.info("<<<<<<<<<< PRODUCT ADDING in non empty list");
                 }
+            }
+
+            List<String> names = new ArrayList<>();
+            for (int i = 0; i < productBox.getProducts().size(); i++) {
+                names.add(productBox.getProducts().get(i).getProductName());
+            }
+            if (!names.contains(productCreated.getProductName()) ||productCreated.getProductName().equals(System.getProperty("productNameWithBlockedCartButton"))) {
+                productBox.getProducts().add(productCreated);
+                logger.info("<<<<<<<<<< PRODUCT ADDING in non empty list");
             }
         }
         if (productBox.getProducts().size() == 0) {
-            logger.info("<<<<<<<<<< PRODUCT ADDING in Empty list productCreated");
+            logger.info("<<<<<<<<<< PRODUCT ADDING in Empty list");
             productBox.getProducts().add(productCreated);
         }
     }

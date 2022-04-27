@@ -3,6 +3,7 @@ package Pages;
 import Base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,16 +141,23 @@ public class CategoryPage extends BasePage {
 
     public Boolean isPriceInChosenBounds(int minValue, int maxValue) {
         Boolean result = false;
-        for (int i = 0; i < pricesFilteredProductsList.size(); i++) {
-            logger.info("<<<<<<<<<< Checking if price is between chosen boundaries:");
-            logger.info("<<<<<<<<<< MinValue is " + minValue + " ,MaxValue is " + maxValue);
-            logger.info("<<<<<<<<<< Price is " + Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
+        if(pricesFilteredProductsList.size() == 0){
+            result=true;
+            logger.info("<<<<<<<<<< There is NO PRODUCT in these bounds");
+        }
 
-            if (minValue <= Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) &&
-                    Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) <= maxValue) {
-                result = true;
-            } else {
-                result = false;
+        if (pricesFilteredProductsList.size() > 0) {
+            for (int i = 0; i < pricesFilteredProductsList.size(); i++) {
+                logger.info("<<<<<<<<<< Checking if price is between chosen boundaries:");
+                logger.info("<<<<<<<<<< MinValue is " + minValue + " ,MaxValue is " + maxValue);
+                logger.info("<<<<<<<<<< Price is " + Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))));
+
+                if (minValue <= Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) &&
+                        Integer.parseInt(String.format("%.0f", Double.parseDouble(pricesFilteredProductsList.get(i).getText().substring(1)))) <= maxValue) {
+                    result = true;
+                } else {
+                    result = false;
+                }
             }
         }
         return result;
@@ -161,7 +169,7 @@ public class CategoryPage extends BasePage {
         moveBottomSliderHandler(minVal);
     }
 
-    public void chooseRandomProductInCategory(){
+    public void chooseRandomProductInCategory() {
         chooseRandomValueFromList(foundedInCategoryProductsList).click();
     }
 }

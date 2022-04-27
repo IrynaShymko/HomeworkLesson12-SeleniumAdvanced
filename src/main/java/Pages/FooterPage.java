@@ -11,12 +11,15 @@ public class FooterPage extends BasePage {
     private WebDriver driver;
     private static Logger logger = LoggerFactory.getLogger("FooterPage.class");
 
-    public FooterPage(WebDriver driver){super(driver);}
+    public FooterPage(WebDriver driver) {
+        super(driver);
+        logger.info("########## FooterPage is created");
+    }
 
     @FindBy(xpath = "//a[@id='link-product-page-prices-drop-1']")
     private WebElement pricesDropLink;
 
-    public void clickOnLinkPricesDrop(){
+    public void clickOnLinkPricesDrop() {
         clickOnElement(pricesDropLink);
     }
 
