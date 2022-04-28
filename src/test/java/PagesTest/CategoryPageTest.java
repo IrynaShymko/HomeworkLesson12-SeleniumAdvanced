@@ -10,39 +10,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CategoryPageTest extends TestBase {
-    private Boolean[] successResultArray = {true, true, true};
-    private List<String> categoryNamesOnTopPanel = new ArrayList<>();
-    private  List<String> categoryTitlesOnPage = new ArrayList<>();
-    private  List<Boolean> confirmationOfDisplayingSideBar = new ArrayList<>();
-    private  List<Boolean> confirmationCountOfProducts = new ArrayList<>();
+    private CategoryPage categoryPage = new CategoryPage(driver);
     private static Logger logger = LoggerFactory.getLogger("CategoryPageTest.class");
 
 
     @Test
     public void shouldMatchInfoInCategories() {
-        List<Boolean> successResult = Arrays.asList(successResultArray);
         List<WebElement> categories = topPanelPage.getCategoriesList();
         for (int i = 0; i < categories.size(); i++) {
-            categoryNamesOnTopPanel.add(categories.get(i).getText());
+            String categoryName = categories.get(i).getText();
             categories.get(i).click();
-            CategoryPage categoryPage = new CategoryPage(driver);
-            categoryTitlesOnPage.add(categoryPage.getCategoryTitle());
-            confirmationOfDisplayingSideBar.add(categoryPage.isDisplayedCategorySideBarMenu());
-            confirmationCountOfProducts.add(categoryPage.accordingCountProductsWithConfirmationMessage());
+            logger.info("<<<<<<<<<< Category Name in top panel is: " + categoryName);
+            assertAll("Error in categories",
+                    () -> assertEquals(categoryName, categoryPage.getCategoryTitle(), "Different titles on top panel and categoryPage"),
+                    () -> assertTrue(categoryPage.isDisplayedCategorySideBarMenu(), "Side bar is not displayed"),
+                    () -> assertTrue(categoryPage.accordingCountProductsWithConfirmationMessage(), "Count of products is incorrect"));
         }
-        logger.info("<<<<<<<<<< List of category names on Top Panel is: " + categoryNamesOnTopPanel);
-        logger.info("<<<<<<<<<< List of category titles is: " + categoryTitlesOnPage);
-        logger.info("<<<<<<<<<< List of side bar confirmations is: " + confirmationOfDisplayingSideBar);
-        logger.info("<<<<<<<<<< List of matches count of products confirmations: " + confirmationCountOfProducts);
-
-        assertAll("Error in categories",
-                () -> assertEquals(categoryNamesOnTopPanel, categoryTitlesOnPage, "CategoryPage: Different titles on top panel and categoryPage"),
-                () -> assertEquals(successResult, confirmationOfDisplayingSideBar, "CategoryPage: Side bar is not displayed"),
-                () -> assertEquals(successResult, confirmationCountOfProducts, "CategoryPage: Count of products is incorrect"));
     }
 }
