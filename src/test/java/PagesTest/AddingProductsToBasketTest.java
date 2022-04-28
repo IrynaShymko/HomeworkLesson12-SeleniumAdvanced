@@ -16,18 +16,18 @@ public class AddingProductsToBasketTest extends TestBase {
     private int maxQuantityOfProduct = 5;
     private int minQuantityOfProduct = 1;
     private CategoryPage categoryPage = new CategoryPage(driver);
-    private ProductDetailsPage productDetailsPage= new ProductDetailsPage(driver);
+    private ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
     private ProductBox productBox = new ProductBox();
-    private ModalCartPage modalCartPage =new ModalCartPage(driver);
+    private ModalCartPage modalCartPage = new ModalCartPage(driver);
 
     @Test
-    public void  shouldSuccessfullyAddToShoppingCart() {
-        for (int i=0; i<timesToRepeat; i++) {
+    public void shouldSuccessfullyAddToShoppingCart() {
+        for (int i = 0; i < timesToRepeat; i++) {
             topPanelPage.chooseRandomCategory();
             categoryPage.chooseRandomProductInCategory();
-            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct);
-            productDetailsPage.changeProductBoxContent(productBox);
-            productDetailsPage.addProductToCart();
+            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct)
+                    .changeProductBoxContent(productBox)
+                    .addProductToCart();
             assertTrue(modalCartPage.isProductInfoInCartTheSameInProductBox(productBox), "Products are different");
             assertTrue(modalCartPage.isCommonInfoInCartTheSameInProductBox(productBox), "Common Info is different");
             modalCartPage.clickContinueShoppingButton();

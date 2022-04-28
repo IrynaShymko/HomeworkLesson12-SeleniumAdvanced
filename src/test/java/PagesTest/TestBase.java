@@ -1,8 +1,6 @@
 package PagesTest;
-import Base.BasePage;
 import Pages.FooterPage;
 import Pages.MainPage;
-import Pages.ProductDetailsPage;
 import Pages.TopPanelPage;
 import Properties.AppProperties;
 import Properties.BrowserEnvironment;
@@ -16,7 +14,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 
 public class TestBase {
-    private static Logger logger = LoggerFactory.getLogger("PagesTest.TestBase.class");
+    private static Logger logger = LoggerFactory.getLogger("Base.TestBase.class");
     protected static WebDriver driver;
     private static AppProperties appProperties;
     private static BrowserEnvironment browserEnvironment;
@@ -32,11 +30,11 @@ public class TestBase {
         driver=new DriverFactory().getDriver(new YMLreader().getConfiguration().getBrowserConfig().getBrowserEnum());
         logger.info("<<<<<<<<<<<<<<<<<< Driver initiated properly");
     }
-//
-//    @AfterAll
-//    static void tearDown() {
-//        driver.quit();
-//        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
-//    }
+
+    @AfterAll
+    static void tearDown() {
+        driver.quit();
+        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
+    }
 
 }

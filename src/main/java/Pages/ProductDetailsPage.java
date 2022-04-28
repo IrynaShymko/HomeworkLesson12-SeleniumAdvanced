@@ -31,6 +31,9 @@ public class ProductDetailsPage extends BasePage {
     @FindBy(xpath = "//span[@itemprop='price']")
     private WebElement regularPriceOnProductDetails;
 
+    @FindBy(xpath = "//span[@class='regular-price']")
+    private WebElement regularPriceDetails;
+
     @FindBy(xpath = "//button[@data-button-action='add-to-cart']")
     private WebElement addToCartButton;
 
@@ -72,7 +75,7 @@ public class ProductDetailsPage extends BasePage {
 
     public Boolean OnProductDetailsIsDiscountedPriceLowerThanRegularOnDiscountSize() {
         Boolean result = false;
-        Double regularPrice = Double.parseDouble(regularPriceOnProductDetails.getText().substring(1));
+        Double regularPrice = Double.parseDouble(regularPriceDetails.getText().substring(1));
         Double discountedPrice = Double.parseDouble(actualPriceOnProductDetails.getText().substring(1));
         logger.info("<<<<<<<<<<<<< REGULAR PRICE IS " + regularPrice + ", DISCOUNTED PRICE IS " + discountedPrice);
         if (Double.parseDouble(String.format("%.2f", (100 * discountedPrice / regularPrice))) == 100.00 - Double.parseDouble(System.getProperty("discountSize"))) {
@@ -85,14 +88,14 @@ public class ProductDetailsPage extends BasePage {
         return result;
     }
 
-    public void chooseQuantityOfProduct(int minimumValue, int maximumValue) {
+    public ProductDetailsPage chooseQuantityOfProduct(int minimumValue, int maximumValue) {
         String productTitle = productNameOnProductDetailPage.getText();
         if(productTitle.equals(System.getProperty("productNameWithBlockedCartButton"))){
             clearFieldAndSendKeys(productMessageField, System.getProperty("customizationMessage")+getRandomValueFromChosenBoundaries(1,100));
             hoverAndClick(saveCustomizationMessageButton);
         }
         clearFieldAndSendKeys(quantityOfProduct, String.valueOf(getRandomValueFromChosenBoundaries(minimumValue, maximumValue)));
-    }
+    return this;}
 
     public String getProductNameFromProductDetailsPage() {
         logger.info("<<<<<<<<<< Product name is " + productNameOnProductDetailPage.getText());
@@ -125,7 +128,7 @@ public class ProductDetailsPage extends BasePage {
         return product;
     }
 
-    public void changeProductBoxContent(ProductBox productBox) {
+    public ProductDetailsPage changeProductBoxContent(ProductBox productBox) {
         Product productCreated = buildProduct();
         if (productBox.getProducts().size() > 0) {
             for (int i = 0; i < productBox.getProducts().size(); i++) {
@@ -156,5 +159,5 @@ public class ProductDetailsPage extends BasePage {
             logger.info("<<<<<<<<<< PRODUCT ADDING in Empty list");
             productBox.getProducts().add(productCreated);
         }
-    }
+        return this;}
 }

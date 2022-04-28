@@ -33,7 +33,7 @@ public class CheckoutTest extends TestBase {
     private OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
     private AccountPage accountPage = new AccountPage(driver);
     private OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
-    OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
+    private OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
 
     @Test
     public void shouldAddProductsAndCheckOutSuccessfully() {
@@ -45,9 +45,9 @@ public class CheckoutTest extends TestBase {
         for (int i = 0; i < howManyKindsOfProductsToAdd; i++) {
             topPanelPage.chooseRandomCategory();
             categoryPage.chooseRandomProductInCategory();
-            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct);
-            productDetailsPage.changeProductBoxContent(productBox);
-            productDetailsPage.addProductToCart();
+            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct)
+                    .changeProductBoxContent(productBox)
+                    .addProductToCart();
             if (i == howManyKindsOfProductsToAdd - 1) {
                 modalCartPage.clickProceedToCheckoutButton();
             } else {
@@ -55,19 +55,20 @@ public class CheckoutTest extends TestBase {
             }
         }
         basketPage.clickOnProceedToCheckoutButtonInCart();
-        orderDataPage.fillAddressesSection();
-        orderDataPage.fillDeliverySection();
-        orderDataPage.selectPaymentMethod();
-        orderDataPage.openTermsOfServiceLink();
+        orderDataPage.fillAddressesSection()
+                .fillDeliverySection()
+                .selectPaymentMethod()
+                .openTermsOfServiceLink();
         boolean isContentOfTermsOfServiceNonEmpty = termsOfServiceModalPage.isContentOfTermsOfServiceNonEmpty();
         termsOfServiceModalPage.closeModalTermsOfService();
-        orderDataPage.acceptTermOfService();
-        orderDataPage.clickPlaceOrderButton();
+        orderDataPage.acceptTermOfService()
+                .clickPlaceOrderButton();
         assertAll("Error in order confirmation page",
                 () -> assertTrue(isContentOfTermsOfServiceNonEmpty, "Content of Terms of service is empty"),
                 () -> assertTrue(orderConfirmationPage.isProductDataInOrderConfirmationTheSameInProductBox(productBox), "Products in Order confirmation and in Box are different"),
                 () -> assertTrue(orderConfirmationPage.isPaymentMethodTheSameWasSelected(), "Payment method in Order confirmation and selected are different"),
                 () -> assertTrue(orderConfirmationPage.isShippingMethodTheSameWasSelected(), "Shipping method in Order confirmation and selected are different"));
+
         orderConfirmationPage.saveOrderReferenceNumber(orderDataInfo);
         topPanelPage.navigateToAccountPage();
         accountPage.clickOnOrderHistoryLink();

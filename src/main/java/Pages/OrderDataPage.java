@@ -80,31 +80,32 @@ public class OrderDataPage extends BasePage {
         logger.info("<<<<<<<<<< Click on CONTINUE button in Addresses section");
     }
 
-    public void fillAddressesSection() {
+    public OrderDataPage fillAddressesSection() {
         fillAddressesSectionFields();
         clickContinueButtonAddressesSection();
+        return this;
     }
 
-    public void fillDeliverySection() {
+    public OrderDataPage fillDeliverySection() {
         deliveryOptionsList.get(deliveryOptionsList.size() - 1).click();
         continueButtonDeliverySection.click();
         logger.info("<<<<<<<<<< Click on CONTINUE button in Delivery section");
-    }
+    return this;}
 
-    public void selectPaymentMethod() {
+    public OrderDataPage selectPaymentMethod() {
         payByBankWireRadioButton.click();
         logger.info("<<<<<<<<<< Chosen payment method");
-    }
+        return this;}
 
-    public void openTermsOfServiceLink() {
+    public OrderDataPage openTermsOfServiceLink() {
         termsOfServiceLink.click();
         logger.info("<<<<<<<<<< Click on TermsOfServiceLink");
         switchToLastOpenedWindow();
-    }
+        return this;}
 
-    public void acceptTermOfService() {
+    public OrderDataPage acceptTermOfService() {
         acceptTermsOfServiceCheckBox.click();
-    }
+    return this;}
 
     public void clickPlaceOrderButton() {
         placeOrderButton.click();

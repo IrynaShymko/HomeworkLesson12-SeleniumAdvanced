@@ -28,9 +28,9 @@ public class BasketPageTest extends TestBase {
         for (int i = 0; i < howManyKindsOfProductsToAdd; i++) {
             topPanelPage.chooseRandomCategory();
             categoryPage.chooseRandomProductInCategory();
-            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct);
-            productDetailsPage.changeProductBoxContent(productBox);
-            productDetailsPage.addProductToCart();
+            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct)
+                    .changeProductBoxContent(productBox)
+                    .addProductToCart();
             modalCartPage.clickContinueShoppingButton();
         }
         topPanelPage.clickCartIcon();
