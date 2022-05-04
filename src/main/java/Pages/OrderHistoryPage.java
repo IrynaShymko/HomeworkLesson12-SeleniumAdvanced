@@ -30,11 +30,11 @@ public class OrderHistoryPage extends BasePage {
         logger.info("<<<<<<<<<< Start checking CommonOrderInfo");
         Boolean result = false;
         for (WebElement rowInOrderHistoryList : rowsInOrderHistoryList) {
-            String referenceNum = rowInOrderHistoryList.findElement(By.xpath(".//th")).getText();
-            String date = rowInOrderHistoryList.findElement(By.xpath(".//td[1]")).getText();
-            String totalCost = rowInOrderHistoryList.findElement(By.xpath(".//td[2]")).getText().substring(1);
-            String payment = rowInOrderHistoryList.findElement(By.xpath(".//td[3]")).getText();
-            String status = rowInOrderHistoryList.findElement(By.xpath(".//td[4]/span")).getText();
+            String referenceNum = rowInOrderHistoryList.findElement(By.xpath(".//th")).getText().trim();
+            String date = rowInOrderHistoryList.findElement(By.xpath(".//td[1]")).getText().trim();
+            String totalCost = rowInOrderHistoryList.findElement(By.xpath(".//td[2]")).getText().substring(1).trim();
+            String payment = rowInOrderHistoryList.findElement(By.xpath(".//td[3]")).getText().trim();
+            String status = rowInOrderHistoryList.findElement(By.xpath(".//td[4]/span")).getText().trim();
             logger.info("<<<<<<<<<< referenceNum "+referenceNum);
             logger.info("<<<<<<<<<< SavedReference "+orderDataInfo.getOrderReferenceNumber());
             logger.info("<<<<<<<<<< date " + date);
@@ -42,11 +42,12 @@ public class OrderHistoryPage extends BasePage {
             logger.info("<<<<<<<<<< totalCost " + totalCost);
             logger.info("<<<<<<<<<< totalCostInBox " + String.format("%.2f", productBox.getTotalOrderCostInBox(productBox.getProducts())));
 
-            if ((orderDataInfo.getOrderReferenceNumber().contains(referenceNum))
-                    && date.contains(getDateToday())
-                    && totalCost.contains(String.valueOf(Double.parseDouble(String.format("%.2f", productBox.getTotalOrderCostInBox(productBox.getProducts())))))
-                    && payment.contains(System.getProperty("SynonymicNameBankWirePaymentMethod"))
-                    && status.contains(System.getProperty("PaymentStatus"))) {
+
+            if ((orderDataInfo.getOrderReferenceNumber().trim().equals(referenceNum))
+                    && date.equals(getDateToday())
+                    && totalCost.equals(String.valueOf(Double.parseDouble(String.format("%.2f", productBox.getTotalOrderCostInBox(productBox.getProducts())))))
+                    && payment.equals(System.getProperty("SynonymicNameBankWirePaymentMethod"))
+                    && status.equals(System.getProperty("PaymentStatus"))) {
                 result = true;
             }
         }

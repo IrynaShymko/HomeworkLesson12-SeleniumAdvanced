@@ -38,30 +38,42 @@ public class CheckoutTest extends TestBase {
     @Test
     public void shouldAddProductsAndCheckOutSuccessfully() {
         User user = UserFactory.getRandomUser(firstNameLength, lastNameLength, passwordLength);
-        topPanelPage.clickSignInButton();
-        loginPage.clickCreateAccountLink();
-        registrationPage.fillRegistrationForm(user)
+        topPanelPage
+                .clickSignInButton();
+        loginPage
+                .clickCreateAccountLink();
+        registrationPage
+                .fillRegistrationForm(user)
                 .submitRegistrationForm();
         for (int i = 0; i < howManyKindsOfProductsToAdd; i++) {
-            topPanelPage.chooseRandomCategory();
-            categoryPage.chooseRandomProductInCategory();
-            productDetailsPage.chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct)
+            topPanelPage
+                    .chooseRandomCategory();
+            categoryPage
+                    .chooseRandomProductInCategory();
+            productDetailsPage
+                    .chooseQuantityOfProduct(minQuantityOfProduct, maxQuantityOfProduct)
                     .changeProductBoxContent(productBox)
                     .addProductToCart();
             if (i == howManyKindsOfProductsToAdd - 1) {
-                modalCartPage.clickProceedToCheckoutButton();
+                modalCartPage
+                        .clickProceedToCheckoutButton();
             } else {
-                modalCartPage.clickContinueShoppingButton();
+                modalCartPage
+                        .clickContinueShoppingButton();
             }
         }
-        basketPage.clickOnProceedToCheckoutButtonInCart();
-        orderDataPage.fillAddressesSection()
+        basketPage
+                .clickOnProceedToCheckoutButtonInCart();
+        orderDataPage
+                .fillAddressesSection()
                 .fillDeliverySection()
                 .selectPaymentMethod()
                 .openTermsOfServiceLink();
         boolean isContentOfTermsOfServiceNonEmpty = termsOfServiceModalPage.isContentOfTermsOfServiceNonEmpty();
-        termsOfServiceModalPage.closeModalTermsOfService();
-        orderDataPage.acceptTermOfService()
+        termsOfServiceModalPage
+                .closeModalTermsOfService();
+        orderDataPage
+                .acceptTermOfService()
                 .clickPlaceOrderButton();
         assertAll("Error in order confirmation page",
                 () -> assertTrue(isContentOfTermsOfServiceNonEmpty, "Content of Terms of service is empty"),
@@ -69,11 +81,15 @@ public class CheckoutTest extends TestBase {
                 () -> assertTrue(orderConfirmationPage.isPaymentMethodTheSameWasSelected(), "Payment method in Order confirmation and selected are different"),
                 () -> assertTrue(orderConfirmationPage.isShippingMethodTheSameWasSelected(), "Shipping method in Order confirmation and selected are different"));
 
-        orderConfirmationPage.saveOrderReferenceNumber(orderDataInfo);
-        topPanelPage.navigateToAccountPage();
-        accountPage.clickOnOrderHistoryLink();
+        orderConfirmationPage
+                .saveOrderReferenceNumber(orderDataInfo);
+        topPanelPage
+                .navigateToAccountPage();
+        accountPage
+                .clickOnOrderHistoryLink();
         boolean isCommonOrderInfoTheSameInProductBox = orderHistoryPage.isCommonOrderInfoTheSameInProductBox(orderDataInfo, productBox);
-        orderHistoryPage.clickOnDetailsLink(orderDataInfo);
+        orderHistoryPage
+                .clickOnDetailsLink(orderDataInfo);
         assertAll("Error in order details page",
                 () -> assertTrue(isCommonOrderInfoTheSameInProductBox, "Common order info IS NOT the same in product box"),
                 () -> assertTrue(orderDetailsPage.isProductDataInOrderDetailsTheSameInProductBox(productBox), "Products in Order details and in Box are different"),

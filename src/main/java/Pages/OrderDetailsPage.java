@@ -66,6 +66,7 @@ public class OrderDetailsPage extends BasePage {
         return result;
     }
 
+
     private Boolean isAddressOnDetailsCorrect(WebElement webElement) {
         if (webElement.getText().contains(System.getProperty("Address"))
                 && webElement.getText().contains(System.getProperty("City"))
