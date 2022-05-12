@@ -18,9 +18,9 @@ public class TestBase {
     protected static WebDriver driver;
     private static AppProperties appProperties;
     private static BrowserEnvironment browserEnvironment;
-    MainPage mainPage = new MainPage(driver);
-    TopPanelPage topPanelPage=new TopPanelPage(driver);
-    FooterPage footerPage = new FooterPage(driver);
+    public MainPage mainPage = new MainPage(driver);
+    public TopPanelPage topPanelPage=new TopPanelPage(driver);
+   public FooterPage footerPage = new FooterPage(driver);
 
 
     @BeforeAll

@@ -5,6 +5,7 @@ import Helpers.ProductBox;
 import Helpers.User;
 import Helpers.UserFactory;
 import Pages.*;
+import helpers.Pages;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckoutTest extends TestBase {
+public class CheckoutTest extends Pages {
     private static Logger logger = LoggerFactory.getLogger("CheckoutTest.class");
     int firstNameLength = 6;
     int lastNameLength = 9;
@@ -22,18 +23,6 @@ public class CheckoutTest extends TestBase {
     private int maxQuantityOfProduct = 3;
     private OrderDataInfo orderDataInfo = new OrderDataInfo();
     private ProductBox productBox = new ProductBox();
-    private CategoryPage categoryPage = new CategoryPage(driver);
-    private ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
-    private ModalCartPage modalCartPage = new ModalCartPage(driver);
-    private BasketPage basketPage = new BasketPage(driver);
-    private RegistrationPage registrationPage = new RegistrationPage(driver);
-    private LoginPage loginPage = new LoginPage(driver);
-    private OrderDataPage orderDataPage = new OrderDataPage(driver);
-    private TermsOfServiceModalPage termsOfServiceModalPage = new TermsOfServiceModalPage(driver);
-    private OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
-    private AccountPage accountPage = new AccountPage(driver);
-    private OrderHistoryPage orderHistoryPage = new OrderHistoryPage(driver);
-    private OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
 
     @Test
     public void shouldAddProductsAndCheckOutSuccessfully() {

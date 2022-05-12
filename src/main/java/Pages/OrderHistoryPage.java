@@ -44,10 +44,10 @@ public class OrderHistoryPage extends BasePage {
 
 
             if ((orderDataInfo.getOrderReferenceNumber().trim().equals(referenceNum))
-                    && date.equals(getDateToday())
-                    && totalCost.equals(String.valueOf(Double.parseDouble(String.format("%.2f", productBox.getTotalOrderCostInBox(productBox.getProducts())))))
-                    && payment.equals(System.getProperty("SynonymicNameBankWirePaymentMethod"))
-                    && status.equals(System.getProperty("PaymentStatus"))) {
+                    && date.contains(getDateToday())
+                    && totalCost.contains(String.valueOf(Double.parseDouble(String.format("%.2f", productBox.getTotalOrderCostInBox(productBox.getProducts())))))
+                    && payment.contains(System.getProperty("SynonymicNameBankWirePaymentMethod"))
+                    && status.contains(System.getProperty("PaymentStatus"))) {
                 result = true;
             }
         }
